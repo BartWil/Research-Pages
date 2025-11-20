@@ -1,0 +1,116 @@
+<style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #111;
+      background: #f7f7f7;
+    }
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95rem;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    .hero {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+      background: #ffffff;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+    }
+    .hero h1 {
+      margin-bottom: 0.5rem;
+      font-size: 1.9rem;
+    }
+    .hero h2 {
+      margin-top: 0;
+      font-weight: 400;
+      color: #555;
+      font-size: 1.2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.6rem;
+      margin-top: 1rem;
+      border-radius: 999px;
+      border: none;
+      background: #0077cc;
+      color: #fff;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-secondary {
+      background: #fff;
+      color: #0077cc;
+      border: 1px solid #0077cc;
+    }
+    section {
+      background: #ffffff;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      header nav {
+        margin-top: 0.5rem;
+      }
+    }
+    .card-option {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: left;
+    }
+    .card-option h3 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+    }
+    .card-option p {
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    .faq-item + .faq-item {
+      margin-top: 0.8rem;
+    }
+    .faq-question {
+      font-weight: 600;
+    }
+  </style>
