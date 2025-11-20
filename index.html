@@ -2,149 +2,810 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Zdrowe Kolana i Pięty – Rekrutacja do badania</title>
+  <title>Zdrowe kolana i pięty – badanie naukowe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
+  <!-- Prosty, nowoczesny font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+  <style>
+    :root {
+      --bg-main: #f3f7fb;
+      --bg-card: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.08);
+      --accent-dark: #1d4ed8;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border-subtle: #e5e7eb;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #dbeafe 0, #f9fafb 40%, #f1f5f9 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Top bar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to right, rgba(248, 250, 252, 0.92), rgba(239, 246, 255, 0.9));
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0.7rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 12px;
+      background: conic-gradient(from 220deg, #2563eb, #22c55e, #eab308, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.8rem;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(148, 163, 184, 0.12);
+      color: var(--text-main);
+    }
+
+    .nav-cta {
+      font-size: 0.88rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(37, 99, 235, 0.4);
+      color: var(--accent-dark);
+      background: rgba(219, 234, 254, 0.3);
+      font-weight: 500;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+    }
+
+    /* Layout main */
+    .page-wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 1.8rem 1.4rem 2.8rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      gap: 2rem;
+      align-items: center;
+      margin-top: 1.2rem;
+      margin-bottom: 2.3rem;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, #eff6ff 0, #ffffff 45%);
+      border-radius: 26px;
+      padding: 2.1rem 2rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(209, 213, 219, 0.6);
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(219, 234, 254, 0.85);
+      color: #1d4ed8;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero h1 {
+      font-size: 1.9rem;
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 900px) {
+      .hero h1 {
+        font-size: 2.1rem;
+      }
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-list {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+      list-style: none;
+    }
+
+    .hero-list li {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-list li span:first-child {
+      font-size: 1rem;
+      margin-top: 0.05rem;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.9rem 1.5rem;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: #f9fafb;
+      border: none;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 16px 30px rgba(37, 99, 235, 0.4);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow: 0 20px 45px rgba(37, 99, 235, 0.45);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.3rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+      gap: 0.4rem;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Hero graphic */
+    .hero-visual {
+      position: relative;
+      min-height: 220px;
+    }
+
+    .hero-badge {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.4rem;
+      background: rgba(15, 23, 42, 0.88);
+      color: #e5e7eb;
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.6);
+    }
+
+    .hero-visual-card {
+      position: absolute;
+      inset: 1.7rem 0.4rem 0.4rem 0.4rem;
+      border-radius: 24px;
+      background: radial-gradient(circle at top, #eff6ff 0, #ffffff 45%, #e5e7eb 110%);
+      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.2);
+      padding: 1.5rem 1.4rem;
+      border: 1px solid rgba(209, 213, 219, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-visual-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-visual-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .pill span.emoji {
+      font-size: 0.9rem;
+    }
+
+    .hero-timeline {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .hero-timeline-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-timeline-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: flex-end;
+    }
+
+    .timeline-badge {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.08);
+      color: #1d4ed8;
+      border: 1px solid rgba(191, 219, 254, 0.9);
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-visual {
+        order: -1;
+        margin-bottom: 0.3rem;
+        min-height: 260px;
+      }
+    }
+
+    /* Sections */
+
+    section.block {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.4rem 1.6rem;
+      margin-bottom: 1.4rem;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+    }
+
+    section.block h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.01em;
+    }
+
+    section.block p.section-intro {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .criteria-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .criteria-card {
+      border-radius: 16px;
+      background: rgba(248, 250, 252, 0.9);
+      padding: 1rem;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .criteria-card h3 {
+      font-size: 0.98rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .criteria-card ul {
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .criteria-card li + li {
+      margin-top: 0.2rem;
+    }
+
+    .btn-inline {
+      font-size: 0.9rem;
+    }
+
+    /* Options (kolano/pieta) */
+    .options-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .options-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .option-card {
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      padding: 1.1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .option-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .option-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .option-card h3 {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .option-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .option-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Steps */
+    .steps-list {
+      list-style: none;
+      counter-reset: step-counter;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    .steps-list li {
+      position: relative;
+      padding-left: 2.2rem;
+      margin-bottom: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .steps-list li::before {
+      counter-increment: step-counter;
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* RODO */
+    .note-box {
+      border-radius: 14px;
+      border: 1px dashed rgba(148, 163, 184, 0.9);
+      padding: 0.9rem 1rem;
+      background: rgba(248, 250, 252, 0.9);
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    /* FAQ */
+    .faq-item + .faq-item {
+      margin-top: 0.7rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .faq-question {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .faq-answer {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* Kontakt */
+    .contact-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-text a {
+      color: var(--accent-dark);
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      padding-top: 0.4rem;
+    }
+
+    @media (max-width: 600px) {
+      .page-wrap {
+        padding: 1.2rem 1rem 2rem;
+      }
+      .hero-card {
+        padding: 1.6rem 1.4rem;
+      }
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+      .nav-inner {
+        padding: 0.6rem 1rem;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
 <header>
-  <div><strong>Zdrowe Kolana i Pięty</strong></div>
-  <nav>
-    <a href="#o-badaniu">O badaniu</a>
-    <a href="#kryteria">Kto może wziąć udział?</a>
-    <a href="#wybor">Kolano czy pięta?</a>
-    <a href="#jak-to-dziala">Jak to działa?</a>
-    <a href="#faq">FAQ</a>
-    <a href="#kontakt">Kontakt</a>
-  </nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">K/P</div>
+      <span>Zdrowe kolana i pięty</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#o-badaniu">O badaniu</a>
+      <a href="#kryteria">Kto może wziąć udział?</a>
+      <a href="#wybor">Kolano czy pięta?</a>
+      <a href="#jak-to-dziala">Jak to działa?</a>
+      <a href="#faq">FAQ</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a href="#kryteria" class="nav-cta">Sprawdź kwalifikację</a>
+  </div>
 </header>
 
-<main class="container">
-
+<main class="page-wrap">
   <!-- HERO -->
   <section class="hero" id="o-badaniu">
-    <h1>Dołącz do badania nad zdrowiem kolan i pięt u młodych sportowców</h1>
-    <h2>Pomóż nam lepiej leczyć ból i zapobiegać problemom u dzieci i młodzieży trenujących sport.</h2>
-    <p>
-      Badanie dotyczy dzieci i nastolatków z bólem kolana (Osgood-Schlatter) lub pięty (Sever).
-      Udział polega na wypełnieniu kwestionariuszy oraz opcjonalnej rozmowie wideo.
-      Formularze są obsługiwane przez system REDCap, zgodny z RODO.
-    </p>
-    <a class="btn" href="#kryteria">Sprawdź, czy możesz wziąć udział</a>
+    <div class="hero-card">
+      <div class="hero-kicker">
+        <span>Badanie naukowe</span> • <span>dzieci 8–18 lat</span>
+      </div>
+      <h1>Dołącz do badania nad bólem kolan i pięt u młodych sportowców</h1>
+      <p class="hero-sub">
+        Pomóż nam lepiej rozumieć i leczyć ból związany z aktywnością sportową u dzieci i nastolatków
+        z podejrzeniem choroby Osgood–Schlatter lub choroby Haglunda–Sever.
+      </p>
+      <ul class="hero-list">
+        <li><span>✅</span><span>Udział polega głównie na wypełnieniu krótkich kwestionariuszy online.</span></li>
+        <li><span>✅</span><span>Możliwa dobrowolna rozmowa wideo z rodzicem i dzieckiem.</span></li>
+        <li><span>✅</span><span>Formularze są obsługiwane przez system REDCap i zgodne z RODO.</span></li>
+      </ul>
+      <div class="hero-cta-row">
+        <a class="btn-primary" href="#kryteria">
+          Sprawdź, czy możesz wziąć udział
+          <span>→</span>
+        </a>
+        <a class="btn-secondary" href="#jak-to-dziala">
+          Zobacz, jak to wygląda krok po kroku
+        </a>
+      </div>
+      <p class="hero-note">
+        Udział w badaniu jest bezpłatny i można zrezygnować w każdym momencie.
+      </p>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-badge">
+        <span>👨‍⚕️</span>
+        <span>Projekt zespołu fizjoterapeutów i naukowców</span>
+      </div>
+      <div class="hero-visual-card">
+        <div>
+          <div class="hero-visual-title">Kogo szukamy?</div>
+          <div class="hero-visual-sub">
+            Dzieci i młodzieży trenującej sport z bólem kolana lub pięty, zgłaszających objawy związane z wysiłkiem.
+          </div>
+          <div class="hero-pill-row">
+            <div class="pill"><span class="emoji">⚽</span><span>Piłka nożna</span></div>
+            <div class="pill"><span class="emoji">🤸</span><span>Gimnastyka</span></div>
+            <div class="pill"><span class="emoji">🏃</span><span>Bieganie</span></div>
+            <div class="pill"><span class="emoji">🏀</span><span>Gry zespołowe</span></div>
+          </div>
+        </div>
+        <div class="hero-timeline">
+          <div class="hero-timeline-text">
+            <strong>Przebieg:</strong><br>
+            krótki formularz kwalifikacyjny → zgoda rodzica → kwestionariusze online → (opcjonalnie) rozmowa wideo → powtórne wypełnienie ankiety po 7–14 dniach.
+          </div>
+          <div class="hero-timeline-badges">
+            <div class="timeline-badge">~15–20 minut</div>
+            <div class="timeline-badge">online w domu</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- KRYTERIA -->
-  <section id="kryteria">
+  <section class="block" id="kryteria">
     <h2>Kto może wziąć udział w badaniu?</h2>
-    <div class="grid-2">
-      <div>
+    <p class="section-intro">
+      Przed przejściem do formularza kwalifikacyjnego sprawdź, czy Twoje dziecko spełnia podstawowe kryteria.
+    </p>
+    <div class="criteria-grid">
+      <div class="criteria-card">
         <h3>Kryteria włączenia</h3>
         <ul>
           <li>wiek dziecka: 8–18 lat,</li>
-          <li>ból kolana (podejrzenie Osgood-Schlatter) lub ból pięty (podejrzenie Sever),</li>
+          <li>ból kolana (podejrzenie Osgood–Schlatter) lub ból pięty (podejrzenie choroby Sever),</li>
           <li>regularna aktywność sportowa (min. 1× w tygodniu),</li>
           <li>możliwość współpracy przy wypełnianiu prostych kwestionariuszy.</li>
         </ul>
       </div>
-      <div>
+      <div class="criteria-card">
         <h3>Kryteria wyłączenia</h3>
         <ul>
           <li>wiek poniżej 8 lat lub powyżej 18 lat,</li>
           <li>brak bólu kolana ani pięty,</li>
           <li>brak zgody rodzica/opiekuna na udział w badaniu,</li>
-          <li>istotne trudności z rozumieniem prostych pytań/ankiet.</li>
+          <li>znaczne trudności z rozumieniem prostych pytań/ankiet.</li>
         </ul>
       </div>
     </div>
-    <!-- globalny przycisk do testu kwalifikacyjnego -->
-    <p>
-      <a class="btn" href="LINK_DO_REDCAP_KWALIFIKACJA">Zacznij – sprawdź kwalifikację</a>
-    </p>
+    <a class="btn-primary btn-inline" href="LINK_DO_REDCAP_KWALIFIKACJA">
+      Zacznij – krótki test kwalifikacyjny
+    </a>
   </section>
 
-  <!-- WYBÓR PROBLEMU -->
-  <section id="wybor">
+  <!-- WYBÓR KOLANO / PIĘTA -->
+  <section class="block" id="wybor">
     <h2>Co chcesz zgłosić?</h2>
-    <div class="grid-2">
-      <div class="card-option">
-        <h3>Ból kolana</h3>
+    <p class="section-intro">
+      Dla bólu kolana i pięty używamy różnych kwestionariuszy. Wybierz obszar, którego dotyczy problem.
+    </p>
+    <div class="options-grid">
+      <div class="option-card">
+        <div class="option-header">
+          <div class="option-icon">🦵</div>
+          <h3>Ból kolana</h3>
+        </div>
         <p>
-          Ból z przodu kolana, poniżej rzepki, nasilający się przy bieganiu, skokach lub treningu.
+          Ból z przodu kolana, poniżej rzepki, nasilający się przy bieganiu, skokach lub po treningu – często związany
+          z chorobą Osgood–Schlatter.
         </p>
-        <a class="btn btn-secondary" href="LINK_DO_REDCAP_KOLANO">
-          Ból kolana – przejdź dalej
+        <div class="option-meta">
+          Kwestionariusze: KOOS-Child oraz AKPS.
+        </div>
+        <a class="btn-secondary" href="LINK_DO_REDCAP_KOLANO">
+          Ból kolana – przejdź do formularza
         </a>
       </div>
-      <div class="card-option">
-        <h3>Ból pięty</h3>
+      <div class="option-card">
+        <div class="option-header">
+          <div class="option-icon">🦶</div>
+          <h3>Ból pięty</h3>
+        </div>
         <p>
-          Ból pięty podczas biegania, skakania lub po treningu, szczególnie u dziecka aktywnego sportowo.
+          Ból pięty podczas biegania, skakania lub po treningu, u dziecka aktywnego sportowo – często związany
+          z chorobą Haglunda–Sever.
         </p>
-        <a class="btn btn-secondary" href="LINK_DO_REDCAP_PIETA">
-          Ból pięty – przejdź dalej
+        <div class="option-meta">
+          Kwestionariusz: Oxford Ankle Foot Questionnaire for Children (OxAFQ-C).
+        </div>
+        <a class="btn-secondary" href="LINK_DO_REDCAP_PIETA">
+          Ból pięty – przejdź do formularza
         </a>
       </div>
     </div>
   </section>
 
   <!-- JAK TO DZIAŁA -->
-  <section id="jak-to-dziala">
+  <section class="block" id="jak-to-dziala">
     <h2>Jak to działa krok po kroku?</h2>
-    <ol>
-      <li>Rodzic zapoznaje się z opisem badania i kryteriami udziału na tej stronie.</li>
+    <p class="section-intro">
+      Cały proces odbywa się online i można go przerwać w dowolnym momencie.
+    </p>
+    <ol class="steps-list">
+      <li>Rodzic czyta opis badania i kryteria udziału na tej stronie.</li>
       <li>Po kliknięciu przycisku przechodzi do krótkiego testu kwalifikacyjnego w REDCap.</li>
-      <li>Jeśli dziecko spełnia kryteria, rodzic wypełnia formularz zgłoszeniowy i wyraża zgodę RODO.</li>
-      <li>Rodzic i dziecko wypełniają odpowiednie kwestionariusze (KOOS-Child i AKPS lub OxAFQ-C).</li>
+      <li>Jeśli dziecko spełnia kryteria, rodzic wypełnia formularz zgłoszeniowy i wyraża zgodę na udział (RODO).</li>
+      <li>Rodzic i dziecko wypełniają odpowiednie kwestionariusze (KOOS-Child i AKPS dla kolana lub OxAFQ-C dla pięty).</li>
       <li>Opcjonalnie wybierają termin rozmowy wideo z badaczem.</li>
-      <li>Po 7–14 dniach system REDCap wysyła przypomnienie o ponownym wypełnieniu kwestionariuszy.</li>
+      <li>Po 7–14 dniach system REDCap wysyła przypomnienie o ponownym wypełnieniu kwestionariuszy (test–retest).</li>
     </ol>
   </section>
 
-  <!-- BEZPIECZEŃSTWO / RODO -->
-  <section>
+  <!-- RODO -->
+  <section class="block">
     <h2>Bezpieczeństwo danych i RODO</h2>
-    <p>
-      Formularze są obsługiwane przez system REDCap, używany w badaniach naukowych na uczelniach medycznych.
-      Dane są przechowywane na zabezpieczonym serwerze i przetwarzane zgodnie z RODO.
-      Szczegółową informację o przetwarzaniu danych i warunkach udziału rodzic otrzyma przed wyrażeniem zgody.
-    </p>
+    <div class="note-box">
+      Formularze są obsługiwane przez system REDCap, powszechnie stosowany w badaniach naukowych na uczelniach
+      medycznych. Dane są przechowywane na zabezpieczonym serwerze i przetwarzane zgodnie z przepisami RODO.
+      Przed wyrażeniem zgody rodzic otrzyma szczegółową informację o badaniu, celu zbierania danych oraz możliwościach
+      wycofania zgody w każdym momencie.
+    </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq">
+  <section class="block" id="faq">
     <h2>Najczęściej zadawane pytania</h2>
+
     <div class="faq-item">
       <div class="faq-question">Czy udział w badaniu jest bezpłatny?</div>
-      <div>Tak, udział w badaniu jest całkowicie bezpłatny.</div>
+      <div class="faq-answer">
+        Tak. Udział w badaniu jest całkowicie bezpłatny i nie wiąże się z żadnymi opłatami dla rodzica ani dziecka.
+      </div>
     </div>
+
     <div class="faq-item">
       <div class="faq-question">Ile czasu zajmuje udział?</div>
-      <div>Wypełnienie kwestionariuszy zwykle zajmuje 10–20 minut. Rozmowa wideo trwa około 20–30 minut.</div>
+      <div class="faq-answer">
+        Wypełnienie kwestionariuszy zwykle zajmuje około 10–20 minut. Rozmowa wideo, jeśli rodzic się na nią zdecyduje,
+        trwa około 20–30 minut.
+      </div>
     </div>
+
     <div class="faq-item">
-      <div class="faq-question">Czy można zrezygnować?</div>
-      <div>Tak, można w każdej chwili zrezygnować z udziału, bez podawania przyczyny.</div>
+      <div class="faq-question">Czy można zrezygnować z udziału?</div>
+      <div class="faq-answer">
+        Tak. Można w każdej chwili wycofać zgodę na udział w badaniu, bez podawania przyczyny. Dotychczas zebrane dane
+        zostaną usunięte, jeśli rodzic o to poprosi.
+      </div>
     </div>
+
     <div class="faq-item">
       <div class="faq-question">Kto prowadzi badanie?</div>
-      <div>Badanie prowadzi zespół fizjoterapeutów i naukowców z [Twoja jednostka / uczelnia].</div>
+      <div class="faq-answer">
+        Badanie prowadzi zespół fizjoterapeutów i naukowców z [Twoja jednostka / uczelnia].
+        Szczegółowe informacje znajdują się w formularzu zgody w systemie REDCap.
+      </div>
     </div>
   </section>
 
   <!-- KONTAKT -->
-  <section id="kontakt">
+  <section class="block" id="kontakt">
     <h2>Kontakt</h2>
-    <p>
-      W razie pytań dotyczących badania prosimy o kontakt:<br>
-      [Imię i nazwisko głównego badacza]<br>
+    <p class="contact-text">
+      W razie pytań dotyczących badania lub wątpliwości co do udziału dziecka prosimy o kontakt:<br><br>
+      <strong>[Imię i nazwisko głównego badacza]</strong><br>
       [Afiliacja]<br>
       E-mail: <a href="mailto:twoj.mail@uczelnia.pl">twoj.mail@uczelnia.pl</a><br>
-      Telefon: [numer telefonu, jeśli chcesz podać]
+      Telefon: [numer telefonu]
     </p>
   </section>
 
+  <footer>
+    Projekt rekrutacyjny – badanie nad bólem kolan i pięt u młodych sportowców
+  </footer>
 </main>
-
 </body>
 </html>
