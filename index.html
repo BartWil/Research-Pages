@@ -17,9 +17,9 @@
       --accent: #2563eb;
       --accent-soft: rgba(37, 99, 235, 0.08);
       --accent-dark: #1d4ed8;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --border-subtle: #e5e7eb;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-subtle: #e2e8f0;
       --radius-lg: 18px;
       --radius-full: 999px;
       --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
@@ -36,6 +36,24 @@
       background: radial-gradient(circle at top left, #dbeafe 0, #f9fafb 40%, #f1f5f9 100%);
       color: var(--text-main);
       line-height: 1.6;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      background: #0f172a;
+      color: #fff;
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      z-index: 40;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+      outline: none;
     }
 
     a {
@@ -89,12 +107,19 @@
       gap: 1rem;
       font-size: 0.9rem;
       color: var(--text-muted);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
     }
 
     .nav-links a {
       padding: 0.3rem 0.7rem;
       border-radius: 999px;
       transition: background 0.18s ease, color 0.18s ease;
+      white-space: nowrap;
     }
 
     .nav-links a:hover {
@@ -126,6 +151,33 @@
       max-width: 1040px;
       margin: 0 auto;
       padding: 1.8rem 1.4rem 2.8rem;
+    }
+
+    .quick-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .quick-nav a {
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(255, 255, 255, 0.75);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      transition: transform 0.15s ease, border 0.15s ease, color 0.15s ease;
+    }
+
+    .quick-nav a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(37, 99, 235, 0.4);
+      color: var(--text-main);
     }
 
     /* Hero */
@@ -378,6 +430,24 @@
       letter-spacing: -0.01em;
     }
 
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: rgba(37, 99, 235, 0.12);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
     section.block p.section-intro {
       font-size: 0.9rem;
       color: var(--text-muted);
@@ -521,6 +591,22 @@
       color: var(--text-muted);
     }
 
+    .sticky-cta {
+      position: sticky;
+      bottom: 1rem;
+      margin: 0 auto 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      padding: 0.7rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+      max-width: 520px;
+    }
+
     /* FAQ */
     .faq-item + .faq-item {
       margin-top: 0.7rem;
@@ -571,13 +657,14 @@
         padding: 0.6rem 1rem;
       }
       .nav-links {
-        display: none;
+        gap: 0.5rem;
       }
     }
   </style>
 </head>
 
 <body>
+<a class="skip-link" href="#o-badaniu">Przejdź do treści</a>
 <header>
   <div class="nav-inner">
     <div class="brand">
@@ -597,6 +684,13 @@
 </header>
 
 <main class="page-wrap">
+  <div class="quick-nav" aria-label="Szybka nawigacja">
+    <a href="#kryteria">Kryteria udziału <span>→</span></a>
+    <a href="#wybor">Kolano czy pięta? <span>→</span></a>
+    <a href="#jak-to-dziala">Proces krok po kroku <span>→</span></a>
+    <a href="#faq">FAQ <span>→</span></a>
+    <a href="#kontakt">Kontakt <span>→</span></a>
+  </div>
   <!-- HERO -->
   <section class="hero" id="o-badaniu">
     <div class="hero-card">
@@ -665,7 +759,10 @@
 
   <!-- KRYTERIA -->
   <section class="block" id="kryteria">
-    <h2>Kto może wziąć udział w badaniu?</h2>
+    <div class="section-header">
+      <span class="section-icon">🧩</span>
+      <h2>Kto może wziąć udział w badaniu?</h2>
+    </div>
     <p class="section-intro">
       Przed przejściem do formularza kwalifikacyjnego sprawdź, czy Twoje dziecko spełnia podstawowe kryteria.
     </p>
@@ -696,7 +793,10 @@
 
   <!-- WYBÓR KOLANO / PIĘTA -->
   <section class="block" id="wybor">
-    <h2>Co chcesz zgłosić?</h2>
+    <div class="section-header">
+      <span class="section-icon">🧭</span>
+      <h2>Co chcesz zgłosić?</h2>
+    </div>
     <p class="section-intro">
       Dla bólu kolana i pięty używamy różnych kwestionariuszy. Wybierz obszar, którego dotyczy problem.
     </p>
@@ -736,7 +836,10 @@
 
   <!-- JAK TO DZIAŁA -->
   <section class="block" id="jak-to-dziala">
-    <h2>Jak to działa krok po kroku?</h2>
+    <div class="section-header">
+      <span class="section-icon">🪜</span>
+      <h2>Jak to działa krok po kroku?</h2>
+    </div>
     <p class="section-intro">
       Cały proces odbywa się online i można go przerwać w dowolnym momencie.
     </p>
@@ -752,7 +855,10 @@
   
   <!-- KORZYŚCI / NAGRODA -->
   <section class="block">
-    <h2>Co otrzymuje uczestnik badania?</h2>
+    <div class="section-header">
+      <span class="section-icon">🎁</span>
+      <h2>Co otrzymuje uczestnik badania?</h2>
+    </div>
     <p class="section-intro">
       Udział w badaniu nie zastępuje indywidualnej konsultacji lekarskiej lub fizjoterapeutycznej,
       ale chcemy, aby wnosił też realną wartość dla dziecka i rodzica.
@@ -772,7 +878,10 @@
   
   <!-- RODO -->
   <section class="block">
-    <h2>Bezpieczeństwo danych i RODO</h2>
+    <div class="section-header">
+      <span class="section-icon">🔒</span>
+      <h2>Bezpieczeństwo danych i RODO</h2>
+    </div>
     <div class="note-box">
       Formularze są obsługiwane przez system REDCap, powszechnie stosowany w badaniach naukowych na uczelniach
       medycznych. Dane są przechowywane na zabezpieczonym serwerze i przetwarzane zgodnie z przepisami RODO.
@@ -783,7 +892,10 @@
 
   <!-- FAQ -->
   <section class="block" id="faq">
-    <h2>Najczęściej zadawane pytania</h2>
+    <div class="section-header">
+      <span class="section-icon">💬</span>
+      <h2>Najczęściej zadawane pytania</h2>
+    </div>
 
     <div class="faq-item">
       <div class="faq-question">Czy udział w badaniu jest bezpłatny?</div>
@@ -819,7 +931,10 @@
 
   <!-- KONTAKT -->
   <section class="block" id="kontakt">
-    <h2>Kontakt</h2>
+    <div class="section-header">
+      <span class="section-icon">📞</span>
+      <h2>Kontakt</h2>
+    </div>
     <p class="contact-text">
       W razie pytań dotyczących badania lub wątpliwości co do udziału dziecka prosimy o kontakt:<br><br>
       <strong> dr Bartosz Wilczyński</strong><br>
@@ -828,6 +943,11 @@
       Telefon: [numer telefonu]
     </p>
   </section>
+
+  <div class="sticky-cta" aria-label="Najważniejsze działania">
+    <a class="btn-primary" href="LINK_DO_REDCAP_KWALIFIKACJA">Krótki test kwalifikacyjny</a>
+    <a class="btn-secondary" href="#wybor">Wybierz: kolano lub pięta</a>
+  </div>
 
   <footer>
     Projekt rekrutacyjny – badanie nad bólem kolan i pięt u młodych sportowców
