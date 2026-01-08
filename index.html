@@ -12,17 +12,17 @@
 
   <style>
     :root {
-      --bg-main: #f3f7fb;
+      --bg-main: #f8fafc;
       --bg-card: #ffffff;
-      --accent: #2563eb;
-      --accent-soft: rgba(37, 99, 235, 0.08);
-      --accent-dark: #1d4ed8;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --border-subtle: #e5e7eb;
+      --accent: #1d4ed8;
+      --accent-soft: rgba(29, 78, 216, 0.08);
+      --accent-dark: #1e3a8a;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-subtle: #e2e8f0;
       --radius-lg: 18px;
       --radius-full: 999px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+      --shadow-soft: 0 16px 36px rgba(15, 23, 42, 0.08);
     }
 
     * {
@@ -31,11 +31,33 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #dbeafe 0, #f9fafb 40%, #f1f5f9 100%);
+      background: var(--bg-main);
       color: var(--text-main);
       line-height: 1.6;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      background: #0f172a;
+      color: #fff;
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      z-index: 40;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+      outline: none;
     }
 
     a {
@@ -48,9 +70,8 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(to right, rgba(248, 250, 252, 0.92), rgba(239, 246, 255, 0.9));
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .nav-inner {
@@ -75,13 +96,13 @@
       width: 30px;
       height: 30px;
       border-radius: 12px;
-      background: conic-gradient(from 220deg, #2563eb, #22c55e, #eab308, #2563eb);
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
       font-size: 0.8rem;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+      box-shadow: 0 8px 20px rgba(29, 78, 216, 0.25);
     }
 
     .nav-links {
@@ -89,16 +110,23 @@
       gap: 1rem;
       font-size: 0.9rem;
       color: var(--text-muted);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
     }
 
     .nav-links a {
       padding: 0.3rem 0.7rem;
       border-radius: 999px;
       transition: background 0.18s ease, color 0.18s ease;
+      white-space: nowrap;
     }
 
     .nav-links a:hover {
-      background: rgba(148, 163, 184, 0.12);
+      background: rgba(148, 163, 184, 0.18);
       color: var(--text-main);
     }
 
@@ -106,9 +134,9 @@
       font-size: 0.88rem;
       padding: 0.5rem 0.9rem;
       border-radius: 999px;
-      border: 1px solid rgba(37, 99, 235, 0.4);
+      border: 1px solid rgba(29, 78, 216, 0.4);
       color: var(--accent-dark);
-      background: rgba(219, 234, 254, 0.3);
+      background: rgba(226, 232, 240, 0.4);
       font-weight: 500;
       display: none;
     }
@@ -128,6 +156,46 @@
       padding: 1.8rem 1.4rem 2.8rem;
     }
 
+    .quick-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .quick-nav a {
+      border-radius: 16px;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(255, 255, 255, 0.75);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      transition: transform 0.15s ease, border 0.15s ease, color 0.15s ease;
+    }
+
+    .quick-nav .quick-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .quick-nav .quick-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .quick-nav a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(37, 99, 235, 0.4);
+      color: var(--text-main);
+    }
+
     /* Hero */
     .hero {
       display: grid;
@@ -139,11 +207,11 @@
     }
 
     .hero-card {
-      background: radial-gradient(circle at top left, #eff6ff 0, #ffffff 45%);
+      background: #ffffff;
       border-radius: 26px;
       padding: 2.1rem 2rem;
       box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(209, 213, 219, 0.6);
+      border: 1px solid rgba(226, 232, 240, 0.9);
     }
 
     .hero-kicker {
@@ -152,8 +220,8 @@
       gap: 0.5rem;
       padding: 0.18rem 0.6rem;
       border-radius: 999px;
-      background: rgba(219, 234, 254, 0.85);
-      color: #1d4ed8;
+      background: rgba(226, 232, 240, 0.7);
+      color: var(--accent-dark);
       font-size: 0.78rem;
       font-weight: 600;
       margin-bottom: 0.8rem;
@@ -220,7 +288,7 @@
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 16px 30px rgba(37, 99, 235, 0.4);
+      box-shadow: 0 16px 30px rgba(29, 78, 216, 0.35);
       transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
       white-space: nowrap;
     }
@@ -263,24 +331,24 @@
     .hero-badge {
       position: static;
       align-self: flex-end;
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
+      background: #0f172a;
+      color: #e2e8f0;
       padding: 0.4rem 0.7rem;
       border-radius: 999px;
       font-size: 0.7rem;
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.6);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.35);
     }
 
     .hero-visual-card {
       position: static;
       border-radius: 24px;
-      background: radial-gradient(circle at top, #eff6ff 0, #ffffff 45%, #e5e7eb 110%);
-      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.2);
+      background: #ffffff;
+      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
       padding: 1.5rem 1.4rem;
-      border: 1px solid rgba(209, 213, 219, 0.7);
+      border: 1px solid rgba(226, 232, 240, 0.9);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -345,9 +413,9 @@
       font-size: 0.75rem;
       padding: 0.3rem 0.6rem;
       border-radius: 999px;
-      background: rgba(37, 99, 235, 0.08);
-      color: #1d4ed8;
-      border: 1px solid rgba(191, 219, 254, 0.9);
+      background: rgba(29, 78, 216, 0.08);
+      color: var(--accent-dark);
+      border: 1px solid rgba(191, 219, 254, 0.7);
     }
 
     @media (max-width: 860px) {
@@ -369,13 +437,39 @@
       padding: 1.5rem 1.4rem 1.6rem;
       margin-bottom: 1.4rem;
       border: 1px solid rgba(226, 232, 240, 0.9);
-      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    section.block:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
     }
 
     section.block h2 {
       font-size: 1.2rem;
       margin-bottom: 0.3rem;
       letter-spacing: -0.01em;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: rgba(29, 78, 216, 0.12);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
     }
 
     section.block p.section-intro {
@@ -514,11 +608,40 @@
     /* RODO */
     .note-box {
       border-radius: 14px;
-      border: 1px dashed rgba(148, 163, 184, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
       padding: 0.9rem 1rem;
       background: rgba(248, 250, 252, 0.9);
       font-size: 0.86rem;
       color: var(--text-muted);
+    }
+
+    .sticky-cta {
+      position: sticky;
+      bottom: 1rem;
+      margin: 0 auto 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      padding: 0.7rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+      max-width: 520px;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1.4rem;
+      bottom: 1.4rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      color: #fff;
+      font-size: 0.8rem;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
+      z-index: 30;
     }
 
     /* FAQ */
@@ -571,13 +694,14 @@
         padding: 0.6rem 1rem;
       }
       .nav-links {
-        display: none;
+        gap: 0.5rem;
       }
     }
   </style>
 </head>
 
 <body>
+<a class="skip-link" href="#o-badaniu">Przejdź do treści</a>
 <header>
   <div class="nav-inner">
     <div class="brand">
@@ -597,6 +721,28 @@
 </header>
 
 <main class="page-wrap">
+  <div class="quick-nav" aria-label="Szybka nawigacja">
+    <a href="#kryteria">
+      <span class="quick-label">Kryteria udziału</span>
+      <span class="quick-meta">Sprawdź w 30 sekund</span>
+    </a>
+    <a href="#wybor">
+      <span class="quick-label">Kolano czy pięta?</span>
+      <span class="quick-meta">Dobierz właściwy formularz</span>
+    </a>
+    <a href="#jak-to-dziala">
+      <span class="quick-label">Proces krok po kroku</span>
+      <span class="quick-meta">6 krótkich etapów</span>
+    </a>
+    <a href="#faq">
+      <span class="quick-label">FAQ</span>
+      <span class="quick-meta">Najczęstsze pytania</span>
+    </a>
+    <a href="#kontakt">
+      <span class="quick-label">Kontakt</span>
+      <span class="quick-meta">Napisz lub zadzwoń</span>
+    </a>
+  </div>
   <!-- HERO -->
   <section class="hero" id="o-badaniu">
     <div class="hero-card">
@@ -633,8 +779,7 @@
 
     <div class="hero-visual">
       <div class="hero-badge">
-        <span>👨‍⚕️</span>
-        <span>Projekt zespołu fizjoterapeutów i naukowców</span>
+        <span>Badanie kliniczne zespołu naukowego</span>
       </div>
       <div class="hero-visual-card">
         <div>
@@ -643,10 +788,10 @@
             Dzieci i młodzieży trenującej sport z bólem kolana lub pięty, zgłaszających objawy związane z wysiłkiem.
           </div>
           <div class="hero-pill-row">
-            <div class="pill"><span class="emoji">⚽</span><span>Piłka nożna</span></div>
-            <div class="pill"><span class="emoji">🤸</span><span>Gimnastyka</span></div>
-            <div class="pill"><span class="emoji">🏃</span><span>Bieganie</span></div>
-            <div class="pill"><span class="emoji">🏀</span><span>Gry zespołowe</span></div>
+            <div class="pill"><span class="emoji">•</span><span>Piłka nożna</span></div>
+            <div class="pill"><span class="emoji">•</span><span>Gimnastyka</span></div>
+            <div class="pill"><span class="emoji">•</span><span>Bieganie</span></div>
+            <div class="pill"><span class="emoji">•</span><span>Gry zespołowe</span></div>
           </div>
         </div>
         <div class="hero-timeline">
@@ -665,7 +810,10 @@
 
   <!-- KRYTERIA -->
   <section class="block" id="kryteria">
-    <h2>Kto może wziąć udział w badaniu?</h2>
+    <div class="section-header">
+      <span class="section-icon">01</span>
+      <h2>Kto może wziąć udział w badaniu?</h2>
+    </div>
     <p class="section-intro">
       Przed przejściem do formularza kwalifikacyjnego sprawdź, czy Twoje dziecko spełnia podstawowe kryteria.
     </p>
@@ -696,7 +844,10 @@
 
   <!-- WYBÓR KOLANO / PIĘTA -->
   <section class="block" id="wybor">
-    <h2>Co chcesz zgłosić?</h2>
+    <div class="section-header">
+      <span class="section-icon">02</span>
+      <h2>Co chcesz zgłosić?</h2>
+    </div>
     <p class="section-intro">
       Dla bólu kolana i pięty używamy różnych kwestionariuszy. Wybierz obszar, którego dotyczy problem.
     </p>
@@ -736,7 +887,10 @@
 
   <!-- JAK TO DZIAŁA -->
   <section class="block" id="jak-to-dziala">
-    <h2>Jak to działa krok po kroku?</h2>
+    <div class="section-header">
+      <span class="section-icon">03</span>
+      <h2>Jak to działa krok po kroku?</h2>
+    </div>
     <p class="section-intro">
       Cały proces odbywa się online i można go przerwać w dowolnym momencie.
     </p>
@@ -752,7 +906,10 @@
   
   <!-- KORZYŚCI / NAGRODA -->
   <section class="block">
-    <h2>Co otrzymuje uczestnik badania?</h2>
+    <div class="section-header">
+      <span class="section-icon">04</span>
+      <h2>Co otrzymuje uczestnik badania?</h2>
+    </div>
     <p class="section-intro">
       Udział w badaniu nie zastępuje indywidualnej konsultacji lekarskiej lub fizjoterapeutycznej,
       ale chcemy, aby wnosił też realną wartość dla dziecka i rodzica.
@@ -772,7 +929,10 @@
   
   <!-- RODO -->
   <section class="block">
-    <h2>Bezpieczeństwo danych i RODO</h2>
+    <div class="section-header">
+      <span class="section-icon">05</span>
+      <h2>Bezpieczeństwo danych i RODO</h2>
+    </div>
     <div class="note-box">
       Formularze są obsługiwane przez system REDCap, powszechnie stosowany w badaniach naukowych na uczelniach
       medycznych. Dane są przechowywane na zabezpieczonym serwerze i przetwarzane zgodnie z przepisami RODO.
@@ -783,7 +943,10 @@
 
   <!-- FAQ -->
   <section class="block" id="faq">
-    <h2>Najczęściej zadawane pytania</h2>
+    <div class="section-header">
+      <span class="section-icon">06</span>
+      <h2>Najczęściej zadawane pytania</h2>
+    </div>
 
     <div class="faq-item">
       <div class="faq-question">Czy udział w badaniu jest bezpłatny?</div>
@@ -819,7 +982,10 @@
 
   <!-- KONTAKT -->
   <section class="block" id="kontakt">
-    <h2>Kontakt</h2>
+    <div class="section-header">
+      <span class="section-icon">07</span>
+      <h2>Kontakt</h2>
+    </div>
     <p class="contact-text">
       W razie pytań dotyczących badania lub wątpliwości co do udziału dziecka prosimy o kontakt:<br><br>
       <strong> dr Bartosz Wilczyński</strong><br>
@@ -829,9 +995,15 @@
     </p>
   </section>
 
+  <div class="sticky-cta" aria-label="Najważniejsze działania">
+    <a class="btn-primary" href="LINK_DO_REDCAP_KWALIFIKACJA">Krótki test kwalifikacyjny</a>
+    <a class="btn-secondary" href="#wybor">Wybierz: kolano lub pięta</a>
+  </div>
+
   <footer>
     Projekt rekrutacyjny – badanie nad bólem kolan i pięt u młodych sportowców
   </footer>
 </main>
+<a class="back-to-top" href="#o-badaniu">Wróć na górę ↑</a>
 </body>
 </html>
